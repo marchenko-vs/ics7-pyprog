@@ -1,4 +1,6 @@
-#  Метод вставок с барьером
+"""Программа демонстрирует работу метода сортировки вставками с барьером
+на списке малой размерности; формирует таблицу замеров времени сортировки
+списков трех различных размерностей"""
 
 import random as r
 import time as t
@@ -9,7 +11,7 @@ def insert_sort_with_barrier(array):
     for i in range(1, len(array)):
         array[0] = array[i]
         j = i - 1
-        while (array[0] < array[j]):
+        while array[0] < array[j]:
             array[j + 1] = array[j]
             j -= 1
         array[j + 1] = array[0]
@@ -21,38 +23,81 @@ def sort_init_array():
     sorted_arr_entry.delete(0, "end")
     sorted_arr_entry.insert(0, insert_sort_with_barrier(init_array))
 
-def get_arr_len():
+def sort_arrays():
     array_len_var = array_len_entry.get()
     array_len_var = array_len_var.split()
     n1, n2, n3 = map(int, array_len_var)
-    '''# Случайные массивы
-    random_array_1 = [r.randint(-100, 250) for i in range(n1)]
-    random_array_2 = [r.randint(-100, 250) for i in range(n2)]
-    random_array_3 = [r.randint(-100, 250) for i in range(n3)]
-    # Упорядоченные массивы
+
+    random_array_1 = [r.randint(-500, 500) for i in range(n1)]
+    random_array_2 = [r.randint(-500, 500) for i in range(n2)]
+    random_array_3 = [r.randint(-500, 500) for i in range(n3)]
+
     ordered_array_1 = sorted(random_array_1)
     ordered_array_2 = sorted(random_array_2)
     ordered_array_3 = sorted(random_array_3)
-    # Обратно упорядоченные массивы
+
     reversed_array_1 = ordered_array_1[::-1]
     reversed_array_2 = ordered_array_2[::-1]
-    reversed_array_3 = ordered_array_3[::-1]'''
+    reversed_array_3 = ordered_array_3[::-1]
+
+    sort_time = t.time()
+    insert_sort_with_barrier(ordered_array_1)
+    table_entry_1.delete(0, 'end')
+    table_entry_1.insert(0, t.time() - sort_time)
+
+    sort_time = t.time()
+    insert_sort_with_barrier(random_array_1)
+    table_entry_2.delete(0, 'end')
+    table_entry_2.insert(0, t.time() - sort_time)
+
+    sort_time = t.time()
+    insert_sort_with_barrier(reversed_array_1)
+    table_entry_3.delete(0, 'end')
+    table_entry_3.insert(0, t.time() - sort_time)
+
+    sort_time = t.time()
+    insert_sort_with_barrier(ordered_array_2)
+    table_entry_4.delete(0, 'end')
+    table_entry_4.insert(0, t.time() - sort_time)
+
+    sort_time = t.time()
+    insert_sort_with_barrier(random_array_2)
+    table_entry_5.delete(0, 'end')
+    table_entry_5.insert(0, t.time() - sort_time)
+
+    sort_time = t.time()
+    insert_sort_with_barrier(reversed_array_2)
+    table_entry_6.delete(0, 'end')
+    table_entry_6.insert(0, t.time() - sort_time)
+
+    sort_time = t.time()
+    insert_sort_with_barrier(ordered_array_3)
+    table_entry_7.delete(0, 'end')
+    table_entry_7.insert(0, t.time() - sort_time)
+
+    sort_time = t.time()
+    insert_sort_with_barrier(random_array_3)
+    table_entry_8.delete(0, 'end')
+    table_entry_8.insert(0, t.time() - sort_time)
+
+    sort_time = t.time()
+    insert_sort_with_barrier(reversed_array_3)
+    table_entry_9.delete(0, 'end')
+    table_entry_9.insert(0, t.time() - sort_time)
 
 
-
-# GUI
 main = tk.Tk()
 main.title("Lab 2")
 main.geometry("700x450")
 
-init_arr_label = tk.Label(text="Initial array:", font="20")
+init_arr_label = tk.Label(text="Initial array:", font='20')
 init_arr_label.place(x="25", y="25")
 sorted_arr_label = tk.Label(text="Sorted array:", font="20")
 sorted_arr_label.place(x="25", y="60")
 array_len_label = tk.Label(text="N1, N2, N3:", font="20")
 array_len_label.place(x="25", y="120")
 
-# table
+# Таблица
 
 table_label_1 = tk.Label(text="Sorted array", font="20")
 table_label_1.place(x="25", y="230")
@@ -87,10 +132,11 @@ table_entry_8.place(x="480", y="280")
 table_entry_9 = tk.Entry(font="20", width="15")
 table_entry_9.place(x="480", y="330")
 
-
+# Переменные
 
 initial_array = tk.StringVar()
-array_len_var = tk.StringVar()
+
+# Сортировка небольшого массива
 
 init_arr_entry = tk.Entry(font="20", textvariable="initial_array")
 init_arr_entry.place(x="130", y="27")
@@ -102,36 +148,7 @@ array_len_entry.place(x="130", y="120")
 init_arr_button = tk.Button(text="Submit", font="20", command=sort_init_array)
 init_arr_button.place(x="350", y="23")
 
-init_arr_button = tk.Button(text="Submit", font="20", command=get_arr_len)
+init_arr_button = tk.Button(text="Submit", font="20", command=sort_arrays)
 init_arr_button.place(x="350", y="115")
 
 main.mainloop()
-'''
-# Вывод времени, просто пример.
-sort_time = t.time()
-insert_sort_with_barrier(ordered_array_1)
-print(("Ordered array: {:10.9f}").format(t.time() - sort_time))
-sort_time = t.time()
-insert_sort_with_barrier(random_array_1)
-print(("Random array: {:10.9f}").format(t.time() - sort_time))
-sort_time = t.time()
-insert_sort_with_barrier(reversed_array_1)
-print(("Reversed array: {:10.9f}").format(t.time() - sort_time))
-sort_time = t.time()
-insert_sort_with_barrier(ordered_array_2)
-print(("Ordered array: {:10.9f}").format(t.time() - sort_time))
-sort_time = t.time()
-insert_sort_with_barrier(random_array_2)
-print(("Random array: {:10.9f}").format(t.time() - sort_time))
-sort_time = t.time()
-insert_sort_with_barrier(reversed_array_2)
-print(("Reversed array: {:10.9f}").format(t.time() - sort_time))
-sort_time = t.time()
-insert_sort_with_barrier(ordered_array_3)
-print(("Ordered array: {:10.9f}").format(t.time() - sort_time))
-sort_time = t.time()
-insert_sort_with_barrier(random_array_3)
-print(("Random array: {:10.9f}").format(t.time() - sort_time))
-sort_time = t.time()
-insert_sort_with_barrier(reversed_array_3)
-print(("Reversed array: {:10.9f}").format(t.time() - sort_time))'''
