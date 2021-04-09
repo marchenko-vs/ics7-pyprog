@@ -2,6 +2,7 @@ import math as m
 import tkinter as tk
 import tkinter.ttk as ttk
 import matplotlib.pyplot as plt
+import matplotlib.patches as mp
 import numpy as np
 
 
@@ -13,6 +14,8 @@ def secant_method_1(a, b, eps, n=50):
     i = 0
     condition = True
     while condition:
+        if f(a) == f(b):
+            break
         x = a - (b - a) * f(a) / (f(b) - f(a))
         condition = abs(x - a) > eps
         a = b
@@ -22,11 +25,12 @@ def secant_method_1(a, b, eps, n=50):
             return 0
     return x, i
 
-
 def secant_method_2(a, b, eps, n=50):
     i = 0
     condition = True
     while condition:
+        if f(a) == f(b):
+            break
         x = a - (b - a) * f(a) / (f(b) - f(a))
         a = b
         b = x
@@ -35,7 +39,6 @@ def secant_method_2(a, b, eps, n=50):
             return 0
         condition = abs(f(x)) > eps
     return x, i
-
 
 def submit_func():
     opt = option.get()
@@ -49,7 +52,7 @@ def submit_func():
         while current_b <= right_b:
             solution = [0, 0, 0, 0]
             root, iterations = secant_method_1(left_b, current_b, eps)
-            if left_b < root < current_b:
+            if left_b - 1e-6 <= root <= right_b + 1e-6:
                 solution[0] = left_b
                 solution[1] = current_b
                 solution[2] = root
@@ -75,8 +78,8 @@ def submit_func():
         tree.insert(parent='', index='end', iid=counter, text=counter + 1,
                     values=('[ {:5.3f} ; {:5.3f} ]'.format(answer[counter][0],
                                                            answer[counter][1]),
-                            '{:1.1f}'.format(answer[counter][2]),
-                            '{:.3e}'.format(f(answer[counter][2])),
+                            '{:8.7f}'.format(answer[counter][2]),
+                            '{:.1e}'.format(f(answer[counter][2])),
                             answer[counter][3],
                             '0'))
         counter += 1
@@ -85,6 +88,9 @@ def submit_func():
     right_b = float(right_b_entry.get())
     x_list = np.linspace(left_b, right_b, 500)
     y_list = [f(x) for x in x_list]
+    plt.title('График')
+    plt.xlabel('x')
+    plt.ylabel('y')
     plt.plot(x_list, y_list)
     for el in answer:
         plt.scatter(el[2], f(el[2]), c='red')
@@ -100,6 +106,10 @@ def submit_func():
             plt.scatter(x_list[i], f(x_list[i]), c='green')
             growing = True
     plt.grid(True)
+    blue_patch = mp.Patch(color='blue', label='f(x)')
+    red_patch = mp.Patch(color='red', label='Корни')
+    green_patch = mp.Patch(color='green', label='Экстремумы')
+    plt.legend(loc='upper left', handles=[blue_patch, red_patch, green_patch])
     plt.show()
 
 
@@ -143,7 +153,7 @@ submit_button.place(x='1040', y='15')
 
 tree = ttk.Treeview(main, columns=('1', '2', '3', '4', '5'))
 tree.insert(parent='', index='end', iid=-1, text='Номер корня',
-            values=('[ x[i] ; x[i + 1]]', 'x', 'f(x)', 'К-во итераций',
+            values=('[ x[i] ; x[i + 1] ]', 'x', 'f(x)', 'К-во итераций',
                     'Код ошибки'))
 tree.place(x='15', y='130')
 
