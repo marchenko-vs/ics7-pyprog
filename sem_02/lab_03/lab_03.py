@@ -1,7 +1,8 @@
 import math as m
 import tkinter as tk
 import tkinter.ttk as ttk
-import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 def f(x):
@@ -79,6 +80,16 @@ def submit_func():
                             answer[counter][3],
                             '0'))
         counter += 1
+
+    left_b = float(left_b_entry.get())
+    right_b = float(right_b_entry.get())
+    x_list = np.linspace(left_b, right_b, 1000)
+    y_list = [f(x) for x in x_list]
+    plt.plot(x_list, y_list)
+    for el in answer:
+        plt.scatter(el[2], f(el[2]), c='red')
+    plt.grid(True)
+    plt.show()
 
 
 main = tk.Tk()
