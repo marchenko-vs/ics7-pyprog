@@ -1,15 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 
-position = 0
-first_var = ''
-second_var = ''
-answer_var = ''
-expression = ''
-operator = '+'
-type_dot = True
-type_plus = True
-type_minus = True
+position = 0  # Variable for text insertion
 
 def four_in_ten(number):
     if number < 0:
@@ -33,20 +25,6 @@ def four_in_ten(number):
         return -float(result)
     else:
         return float(result)
-
-def check_input(number):
-    number = str(number)
-    for i in number:
-        if i != '.' and i != '+' and i != '-':
-            if int(i) > 3:
-                return False
-    return True
-
-def summary(a, b):
-    return four_in_ten(a) + four_in_ten(b)
-
-def difference(a, b):
-    return four_in_ten(a) - four_in_ten(b)
 
 def ten_in_four(number):
     if number < 0:
@@ -83,31 +61,11 @@ def info_click():
 
 def clear_input():
     global position
-    global expression
-    global first_var
-    global second_var
-    global answer_var
-    global type_minus
-    global type_plus
-    global type_dot
-    expression = input_entry.get()
-    input_entry.delete(0, len(expression))
+    input_entry.delete(0, 'end')
     position = 0
-    first_var = ''
-    second_var = ''
-    expression = ''
-    type_plus = True
-    type_minus = True
-    type_dot = True
 
 def clear_output():
-    global answer_var
-    global type_minus
-    global type_plus
-    global type_dot
-    answer_var = output_entry.get()
-    output_entry.delete(0, len(answer_var))
-    answer_var = ''
+    output_entry.delete(0, 'end')
 
 def clear_all():
     clear_input()
@@ -135,72 +93,29 @@ def add_three():
 
 def add_dot():
     global position
-    global type_dot
-    if type_dot:
-        input_entry.insert(position, '.')
-        type_dot = False
-        position += 1
+    input_entry.insert(position, '.')
+    type_dot = False
+    position += 1
 
 def add_plus():
     global position
-    global operator
-    global type_dot
-    global type_plus
-    if type_plus:
-        operator = '+'
-        type_plus = False
-        type_dot = True
-        input_entry.insert(position, '+')
-        position += 1
+    input_entry.insert(position, ' + ')
+    position += 3
 
 def add_minus():
     global position
-    global operator
-    global type_dot
-    global type_minus
-    if type_minus:
-        type_dot = True
-        type_minus = False
-        operator = '-'
-        input_entry.insert(position, '-')
-        position += 1
+    operator = '-'
+    input_entry.insert(position, ' - ')
+    position += 3
 
 def equals():
-    global position
-    global expression
-    global first_var
-    global second_var
-    global answer_var
-    global type_minus
-    global type_plus
-    global type_dot
-    if answer_var != '':
-        output_entry.delete(0, len(str(answer_var)))
-    expression = str(input_entry.get())
-    i = 0
-    while expression[i] != '+' and expression[i] != '-':
-        first_var += expression[i]
-        i += 1
-    i += 1
-    while i < len(expression):
-        second_var += expression[i]
-        i += 1
-    first_var = float(first_var)
-    second_var = float(second_var)
-    if '+' in expression:
-        answer_var = summary(first_var, second_var)
+    expression = input_entry.get().split()
+    if expression[1] == '+':
+        result = ten_in_four(four_in_ten(float(expression[0])) + four_in_ten(float(expression[2])))
     else:
-        answer_var = difference(first_var, second_var)
-    answer_var = ten_in_four(answer_var)
-    output_entry.insert(0, answer_var)
-    input_entry.delete(0, len(expression))
-    position = 0
-    first_var = ''
-    second_var = ''
-    expression = ''
-    type_plus = True
-    type_minus = True
-    type_dot = True
+        result = ten_in_four(four_in_ten(float(expression[0])) - four_in_ten(float(expression[2])))
+    output_entry.delete(0, 'end')
+    output_entry.insert(0, str(result))
 
 
 main = tk.Tk()

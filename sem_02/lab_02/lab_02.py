@@ -17,11 +17,28 @@ def insert_sort_with_barrier(array):
         array[j + 1] = array[0]
     return array[1:]
 
+def bubble_sort_with_flag(array):
+    for i in range(len(array) - 1):
+        flag = True
+        for j in range(len(array) - 1 - i):
+            if array[j] > array[j + 1]:
+                array[j], array[j + 1] = array[j + 1], array[j]
+                flag = False
+        if flag:
+            break
+    return array
+
 def sort_init_array():
     init_array = init_arr_entry.get()
     init_array = list(map(int, init_array.split()))
     sorted_arr_entry.delete(0, "end")
     sorted_arr_entry.insert(0, insert_sort_with_barrier(init_array))
+
+def bubble_init_array():
+    init_array = init_arr_entry.get()
+    init_array = list(map(int, init_array.split()))
+    sorted_arr_entry.delete(0, "end")
+    sorted_arr_entry.insert(0, bubble_sort_with_flag(init_array))
 
 def sort_arrays():
     array_len_var = array_len_entry.get()
@@ -148,7 +165,14 @@ array_len_entry.place(x="130", y="120")
 init_arr_button = tk.Button(text="Submit", font="20", command=sort_init_array)
 init_arr_button.place(x="350", y="23")
 
+bubble_arr_button = tk.Button(text="Bubble sort", font="20", command=bubble_init_array)
+bubble_arr_button.place(x="450", y="23")
+
 init_arr_button = tk.Button(text="Submit", font="20", command=sort_arrays)
 init_arr_button.place(x="350", y="115")
 
 main.mainloop()
+
+# arr = list(map(int,input('Введите список: ').split()))
+# arr = bubble_sort_with_flag(arr)
+# print(*arr)
