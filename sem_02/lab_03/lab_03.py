@@ -47,12 +47,12 @@ def submit_func():
     step = float(step_entry.get())
     eps = float(eps_entry.get())
     answer = []
-    if opt == 2:
+    if opt == 1:
         current_b = left_b + step
         while current_b <= right_b:
             solution = [0, 0, 0, 0]
             root, iterations = secant_method_1(left_b, current_b, eps)
-            if left_b - 1e-6 <= root <= right_b + 1e-6:
+            if left_b < root < current_b:
                 solution[0] = left_b
                 solution[1] = current_b
                 solution[2] = root
@@ -60,7 +60,7 @@ def submit_func():
                 answer.append(solution)
             left_b += step
             current_b += step
-    else:
+    elif opt == 2:
         current_b = left_b + step
         while current_b <= right_b:
             solution = [0, 0, 0, 0]
