@@ -83,11 +83,22 @@ def submit_func():
 
     left_b = float(left_b_entry.get())
     right_b = float(right_b_entry.get())
-    x_list = np.linspace(left_b, right_b, 1000)
+    x_list = np.linspace(left_b, right_b, 500)
     y_list = [f(x) for x in x_list]
     plt.plot(x_list, y_list)
     for el in answer:
         plt.scatter(el[2], f(el[2]), c='red')
+    if f(x_list[0]) - f(x_list[1]) < 0:
+        growing = True
+    else:
+        growing = False
+    for i in range(len(x_list) - 1):
+        if growing and f(x_list[i + 1]) - f(x_list[i]) < 0:
+            plt.scatter(x_list[i], f(x_list[i]), c='green')
+            growing = False
+        elif not growing and f(x_list[i + 1]) - f(x_list[i]) > 0:
+            plt.scatter(x_list[i], f(x_list[i]), c='green')
+            growing = True
     plt.grid(True)
     plt.show()
 
