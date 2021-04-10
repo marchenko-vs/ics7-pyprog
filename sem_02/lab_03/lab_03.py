@@ -7,7 +7,7 @@ import numpy as np
 
 
 def f(x):
-    return m.cos(x)
+    return x*x - 4
 
 
 def secant_method_1(a, b, eps, n=50):
@@ -15,6 +15,12 @@ def secant_method_1(a, b, eps, n=50):
     condition = True
     while condition:
         if f(a) == f(b):
+            break
+        if abs(f(a)) < 1e-5:
+            x = a
+            break
+        if abs(f(b)) < 1e-5:
+            x = b
             break
         x = a - (b - a) * f(a) / (f(b) - f(a))
         condition = abs(x - a) > eps
@@ -52,12 +58,11 @@ def submit_func():
         while current_b <= right_b:
             solution = [0, 0, 0, 0]
             root, iterations = secant_method_1(left_b, current_b, eps)
-            if left_b < root < current_b:
-                solution[0] = left_b
-                solution[1] = current_b
-                solution[2] = root
-                solution[3] = iterations
-                answer.append(solution)
+            solution[0] = left_b
+            solution[1] = current_b
+            solution[2] = root
+            solution[3] = iterations
+            answer.append(solution)
             left_b += step
             current_b += step
     elif opt == 2:
@@ -65,12 +70,11 @@ def submit_func():
         while current_b <= right_b:
             solution = [0, 0, 0, 0]
             root, iterations = secant_method_2(left_b, current_b, eps)
-            if left_b < root < current_b:
-                solution[0] = left_b
-                solution[1] = current_b
-                solution[2] = root
-                solution[3] = iterations
-                answer.append(solution)
+            solution[0] = left_b
+            solution[1] = current_b
+            solution[2] = root
+            solution[3] = iterations
+            answer.append(solution)
             left_b += step
             current_b += step
     counter = 0
