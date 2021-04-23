@@ -7,37 +7,31 @@ import numpy as np
 
 
 def f(x):
-    return m.cos(x)
+    return x*x - 4
 
 
-def secant_method_1(a, b, eps, n=50):
+def secant_method(a, b, eps, option, n=50):
     i = 0
     condition = True
     while condition:
         if f(a) == f(b):
             break
-        x = a - (b - a) * f(a) / (f(b) - f(a))
-        condition = abs(x - a) > eps
-        a = b
-        b = x
-        i += 1
-        if i > n:
-            return 0
-    return x, i
-
-def secant_method_2(a, b, eps, n=50):
-    i = 0
-    condition = True
-    while condition:
-        if f(a) == f(b):
+        if abs(f(a)) < 1e-5:
+            x = a
+            break
+        if abs(f(b)) < 1e-5:
+            x = b
             break
         x = a - (b - a) * f(a) / (f(b) - f(a))
+        if option == 1:
+            condition = abs(x - a) > eps
+        else:
+            condition = abs(f(x)) > eps
         a = b
         b = x
         i += 1
         if i > n:
             return 0
-        condition = abs(f(x)) > eps
     return x, i
 
 def submit_func():
@@ -47,32 +41,17 @@ def submit_func():
     step = float(step_entry.get())
     eps = float(eps_entry.get())
     answer = []
-    if opt == 1:
-        current_b = left_b + step
-        while current_b <= right_b:
-            solution = [0, 0, 0, 0]
-            root, iterations = secant_method_1(left_b, current_b, eps)
-            if left_b < root < current_b:
-                solution[0] = left_b
-                solution[1] = current_b
-                solution[2] = root
-                solution[3] = iterations
-                answer.append(solution)
-            left_b += step
-            current_b += step
-    elif opt == 2:
-        current_b = left_b + step
-        while current_b <= right_b:
-            solution = [0, 0, 0, 0]
-            root, iterations = secant_method_2(left_b, current_b, eps)
-            if left_b < root < current_b:
-                solution[0] = left_b
-                solution[1] = current_b
-                solution[2] = root
-                solution[3] = iterations
-                answer.append(solution)
-            left_b += step
-            current_b += step
+    current_b = left_b + step
+    while current_b <= right_b:
+        solution = [0, 0, 0, 0]
+        root, iterations = secant_method(left_b, current_b, eps, opt)
+        solution[0] = left_b
+        solution[1] = current_b
+        solution[2] = root
+        solution[3] = iterations
+        answer.append(solution)
+        left_b += step
+        current_b += step
     counter = 0
     while counter < len(answer):
         tree.insert(parent='', index='end', iid=counter, text=counter + 1,

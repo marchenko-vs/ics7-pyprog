@@ -1,22 +1,26 @@
-# Программа вычисляет параметры правильной призмы, вписанной в цилиндр
+# Программа вычисляет объем правильной призмы, вписанной в цилиндр и
+# площади ее боковой и полной поверхностей.
+# Автор программы - Марченко Владислав. Группа ИУ7-13Б.
 
-from math import sqrt
+import math
 
-print('Вычислитель параметров правильной призмы, вписанной в цилиндр')
-print('Автор программы - Марченко Владислав')
-h_cil = float(input('Введите высоту цилиндра: '))
-r_osn_cil = float(input('Введите радиус основания цилиндра: '))
 
-if h_cil <= 0 or r_osn_cil <= 0:
-    print('Ошибка: введены неверные данные')
+cylinder_height = float(input('Введите высоту цилиндра: '))
+cylinder_base_radius = float(input('Введите радиус основания цилиндра: '))
+
+if cylinder_height <= 0 or cylinder_base_radius <= 0:
+    print('Ошибка: введены некорректные данные')
 else:
-    h_osn_pr = 1.5 * r_osn_cil # Высота основания призмы
-    a_osn_pr = (2 * h_osn_pr) / sqrt(3) # Сторона основания призмы
-    s_osn_pr = (a_osn_pr ** 2 * sqrt(3)) / 4 # Площадь основания призмы
-    v_pr = s_osn_pr * h_cil
-    s_bok_pov = a_osn_pr * h_cil * 3
-    s_pol_pov = s_bok_pov + 2 * s_osn_pr
-    print('Параметры призмы:')
-    print('Объем призмы равен {:7.4f}'.format(v_pr))
-    print('Площадь боковой поверхности призмы равна {:7.4f}'.format(s_bok_pov))
-    print('Площадь полной поверхности призмы равна {:7.4f}'.format(s_pol_pov)) 
+    prism_base_height = 1.5 * cylinder_base_radius
+    prism_base_side = (2 * prism_base_height) / math.sqrt(3)
+    prism_base_area = (prism_base_side ** 2 * math.sqrt(3)) / 4
+    prism_volume = prism_base_area * cylinder_height
+    lateral_surface_area = prism_base_side * cylinder_height * 3
+    total_surface_area = lateral_surface_area + 2 * prism_base_area
+    
+    print('\nОбъем призмы равен {:7.4f}'.format(prism_volume))
+    print('Площадь боковой поверхности призмы равна' 
+            ' {:7.4f}'.format(lateral_surface_area))
+    print('Площадь полной поверхности призмы равна' 
+            ' {:7.4f}'.format(total_surface_area))
+
