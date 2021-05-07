@@ -2,26 +2,38 @@ import pygame
 
 pygame.init()
 
-WIDTH = 700
-HEIGHT = 500
+NULL = 0
+WIDTH = 900
+HEIGHT = 660
 FPS = 60
-DARK_BLUE = (5, 0, 180)
+SPACE_COLOR = (3, 2, 57)
+STAR_COLOR = (217, 196, 16)
 WHITE = (255, 255, 255)
 
 sc = pygame.display.set_mode((WIDTH, HEIGHT))
+sc.fill(SPACE_COLOR)
 pygame.display.set_caption('Laboratory work 5')
 
 clock = pygame.time.Clock()
 
-surf = pygame.Surface((WIDTH, HEIGHT))
-surf.fill(DARK_BLUE)
+star_surface_1 = pygame.Surface((100, 100))
+star_surface_1.fill(WHITE)
+star_surface_1.set_colorkey(WHITE)
 
-rocket_surf = pygame.Surface((200, 100))
-rocket_surf.fill(WHITE)
-pygame.draw.rect(rocket_surf, WHITE, (10, 10, 75, 75), 2)
+pygame.draw.polygon(star_surface_1, STAR_COLOR,
+                    [(50, 20), (60, 40), (85, 40), (60, 55), (70, 80), (50, 65),
+                     (30, 80), (40, 55), (15, 40), (40, 40)])
 
-rocket_surf.blit(surf, (0, 0))
-sc.blit(rocket_surf, (50, 50))
+star_surface_2 = pygame.Surface((100, 100))
+star_surface_2.fill(WHITE)
+star_surface_2.set_colorkey(WHITE)
+
+pygame.draw.polygon(star_surface_2, STAR_COLOR,
+                    [(50, 20), (60, 40), (85, 40), (60, 55), (70, 80), (50, 65),
+                     (30, 80), (40, 55), (15, 40), (40, 40)])
+
+x1, y1 = NULL, NULL
+x2, y2 = 150, 80
 
 pygame.display.update()
 

@@ -1,6 +1,7 @@
 import math
 import tkinter as tk
 import tkinter.ttk as ttk
+from tkinter import messagebox
 import matplotlib.pyplot as plt
 import matplotlib.patches as mp
 import numpy as np
@@ -54,6 +55,8 @@ def submit_func():
             answer.append(solution)
         current_l += step
         current_r += step
+    if len(answer) == 0:
+        messagebox.showinfo("Error", "No roots")
     counter = 0
     while counter < len(answer):
         tree.insert(parent='', index='end', iid=counter, text=counter + 1,
