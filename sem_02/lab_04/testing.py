@@ -20,10 +20,26 @@ def count_square(a, b, c):
     triangle_s = math.sqrt(
         half_p * (half_p - ab) * (half_p - bc) * (half_p - ac))
 
+    if 4 * triangle_s == 0:
+        return 0, 0, 0, 0
+
     circle_r = (ab * bc * ac) / (4 * triangle_s)
     circle_s = circle_r ** 2 * math.pi
 
-    return circle_s - triangle_s
+    circle_x = - ((a[1] - b[1]) * (c[0] * c[0] + c[1] * c[1]) + (b[1] - c[1]) *
+                  (a[0] * a[0] + a[1] * a[1]) + (c[1] - a[1]) * (b[0] * b[0] +
+                                                                 b[1] * b[1])) \
+               / (2 * ((a[0] - b[0]) * (c[1] - a[1]) - (a[1] - b[1]) *
+                       (c[0] - a[0])))
+
+    circle_y = ((a[0] - b[0]) * (c[0] * c[0] + c[1] * c[1]) + (b[0] - c[0]) *
+                (a[0] * a[0] + a[1] * a[1]) + (c[0] - a[0]) * (b[0] * b[0] +
+                                                               b[1] * b[1])) \
+               / (2 * ((a[0] - b[0]) * (c[1] - a[1]) - (a[1] - b[1]) *
+                       (c[0] - a[0])))
+
+    return circle_s - triangle_s, circle_x, circle_y, circle_r
+
 
 def brute_force(matrix):
     min_result = 1e9
@@ -31,7 +47,7 @@ def brute_force(matrix):
     j = 1
     k = 2
     length = len(matrix)
-    answer_array = [0, 0, 0, 0, 0, 0]
+    answer_array = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
     while i < length - 2:
         while j < length - 1:
@@ -40,8 +56,10 @@ def brute_force(matrix):
                     0] or matrix[i][0] != matrix[k][0]) and (
                         matrix[i][1] != matrix[j][1] or matrix[j][1] !=
                         matrix[k][1] or matrix[i][1] != matrix[k][1]):
-                    result = count_square(matrix[i], matrix[j], matrix[k])
-                    if result < min_result:
+                    result, circle_a, circle_b, radius = count_square(matrix[i],
+                                                                      matrix[j],
+                                                                      matrix[k])
+                    if result < min_result and radius != 0:
                         min_result = result
                         answer_array[0] = matrix[i][0]
                         answer_array[1] = matrix[i][1]
@@ -49,6 +67,9 @@ def brute_force(matrix):
                         answer_array[3] = matrix[j][1]
                         answer_array[4] = matrix[k][0]
                         answer_array[5] = matrix[k][1]
+                        answer_array[6] = circle_a
+                        answer_array[7] = circle_b
+                        answer_array[8] = radius
                 k += 1
             j += 1
             k = j + 1
@@ -57,6 +78,7 @@ def brute_force(matrix):
         k = j + 1
 
     return answer_array
+
 
 def submit_func():
     coords = input_entry.get()
@@ -88,6 +110,10 @@ def submit_func():
                            answer_coords[3]),
                           (answer_coords[4], answer_coords[5]), fill='white',
                           outline='red', width=2)
+    canvas.create_oval((answer_coords[6] - answer_coords[8], answer_coords[7] -
+                        answer_coords[8], answer_coords[6] + answer_coords[8],
+                        answer_coords[7] + answer_coords[8]), outline='green',
+                       width=2)
 
 
 root = tk.Tk()
