@@ -1,45 +1,79 @@
-import pygame
+from my_classes import *
 
-pygame.init()
 
-NULL = 0
-WIDTH = 900
-HEIGHT = 660
+pg.init()
+
+BLACK = (0, 0, 0)
+WIDTH, HEIGHT = 1280, 720
 FPS = 60
-SPACE_COLOR = (3, 2, 57)
-STAR_COLOR = (217, 196, 16)
-WHITE = (255, 255, 255)
 
-sc = pygame.display.set_mode((WIDTH, HEIGHT))
-sc.fill(SPACE_COLOR)
-pygame.display.set_caption('Laboratory work 5')
+pg.display.set_caption('Laboratory work 5')
+screen = pg.display.set_mode((WIDTH, HEIGHT))
 
-clock = pygame.time.Clock()
+clock = pg.time.Clock()
 
-star_surface_1 = pygame.Surface((100, 100))
-star_surface_1.fill(WHITE)
-star_surface_1.set_colorkey(WHITE)
+background = pg.image.load('images/background.jpg').convert()
 
-pygame.draw.polygon(star_surface_1, STAR_COLOR,
-                    [(50, 20), (60, 40), (85, 40), (60, 55), (70, 80), (50, 65),
-                     (30, 80), (40, 55), (15, 40), (40, 40)])
+meteor_speed = 6
+meteor = Meteor(WIDTH - 200, 200, meteor_speed, 'images/meteor.png')
 
-star_surface_2 = pygame.Surface((100, 100))
-star_surface_2.fill(WHITE)
-star_surface_2.set_colorkey(WHITE)
+star_1 = Star(randint(0, int(WIDTH / 2)), 30, 'images/star.png')
+star_2 = Star(randint(0, int(WIDTH / 2)), 90, 'images/star.png')
+star_3 = Star(randint(0, int(WIDTH / 2)), 150, 'images/star.png')
+star_4 = Star(randint(0, int(WIDTH / 2)), 210, 'images/star.png')
+star_5 = Star(randint(0, int(WIDTH / 2)), 270, 'images/star.png')
+star_6 = Star(randint(0, int(WIDTH / 2)), 330, 'images/star.png')
+star_7 = Star(randint(0, int(WIDTH / 2)), 390, 'images/star.png')
+star_8 = Star(randint(0, int(WIDTH / 2)), 450, 'images/star.png')
+star_9 = Star(randint(0, int(WIDTH / 2)), 510, 'images/star.png')
+star_10 = Star(randint(0, int(WIDTH / 2)), 570, 'images/star.png')
+star_11 = Star(randint(0, int(WIDTH / 2)), 630, 'images/star.png')
+star_12 = Star(randint(0, int(WIDTH / 2)), 690, 'images/star.png')
 
-pygame.draw.polygon(star_surface_2, STAR_COLOR,
-                    [(50, 20), (60, 40), (85, 40), (60, 55), (70, 80), (50, 65),
-                     (30, 80), (40, 55), (15, 40), (40, 40)])
+rocket_speed = 5
+rocket = Rocket(WIDTH / 2, HEIGHT, rocket_speed, 'images/rocket.png')
 
-x1, y1 = NULL, NULL
-x2, y2 = 150, 80
+while True:
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            exit()
 
-pygame.display.update()
+    screen.blit(background, (0, 0))
 
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+    screen.blit(meteor.image, meteor.rect)
+
+    screen.blit(star_1.image, star_1.rect)
+    screen.blit(star_2.image, star_2.rect)
+    screen.blit(star_3.image, star_3.rect)
+    screen.blit(star_4.image, star_4.rect)
+    screen.blit(star_5.image, star_5.rect)
+    screen.blit(star_6.image, star_6.rect)
+    screen.blit(star_7.image, star_7.rect)
+    screen.blit(star_8.image, star_8.rect)
+    screen.blit(star_9.image, star_9.rect)
+    screen.blit(star_10.image, star_10.rect)
+    screen.blit(star_11.image, star_11.rect)
+    screen.blit(star_12.image, star_12.rect)
+
+    screen.blit(rocket.image, rocket.rect)
+
+    pg.display.update()
+
     clock.tick(FPS)
+
+    meteor.update(WIDTH)
+
+    star_1.update(WIDTH)
+    star_2.update(WIDTH)
+    star_3.update(WIDTH)
+    star_4.update(WIDTH)
+    star_5.update(WIDTH)
+    star_6.update(WIDTH)
+    star_7.update(WIDTH)
+    star_8.update(WIDTH)
+    star_9.update(WIDTH)
+    star_10.update(WIDTH)
+    star_11.update(WIDTH)
+    star_12.update(WIDTH)
+
+    rocket.update(HEIGHT)
