@@ -8,7 +8,7 @@ import numpy as np
 
 
 def f(x):
-    return x * x
+    return math.sin(x)
 
 
 def secant_method(left_b, right_b, eps, option, max_iter=500):

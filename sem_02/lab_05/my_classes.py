@@ -38,6 +38,6 @@ class Saturn(pg.sprite.Sprite):
         self.t = t
 
     def update(self, *args):
-        self.rect.x = args[0] + 25 * cos(self.t)
-        self.rect.y = args[1] + 25 * sin(self.t)
+        self.rect.x = args[0] + 80 * cos(self.t)
+        self.rect.y = args[1] + 80 * sin(self.t)
         self.t += 0.05
