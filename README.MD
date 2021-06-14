@@ -1,6 +1,7 @@
-# Репозиторий с моими лабораторными работами на языке программирования Python
+# Labs on Python language
 
-## МГТУ им. Н. Э. Баумана
+## Bauman Moscow State Technical University
 
-## ИУ7
+## IU7
 
+## Software engineering
