@@ -1,7 +1,7 @@
-# Labs on Python language
+# Лабораторные работы по программированию на Python
 
-## Bauman Moscow State Technical University
+## Первый и второй семестры
 
-## IU7
+## ИУ7, МГТУ им. Н. Э. Баумана
 
-## Software engineering
+### 2020-2021
