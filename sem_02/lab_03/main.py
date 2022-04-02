@@ -30,6 +30,7 @@ def secant_method(left_b, right_b, eps, option, max_iter=500):
             condition = abs(f(x)) > eps
     return x, i, 0
 
+
 def submit_func():
     choice = opt.get()
     left_b = float(left_b_entry.get())

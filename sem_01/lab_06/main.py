@@ -1,13 +1,10 @@
-# Автор программы - Марченко Владислав (ИУ7-13Б)
-# Вариант 13
-# Программа предлагает на выбор 7 вариантов работы со списком
-
 def isfloat(index):
     try:
         float(index)
         return True
     except ValueError:
         return False
+
 
 array = []
 position = -5

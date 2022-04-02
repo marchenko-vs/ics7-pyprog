@@ -1,10 +1,7 @@
-"""Программа демонстрирует работу метода сортировки вставками с барьером
-на списке малой размерности; формирует таблицу замеров времени сортировки
-списков трех различных размерностей"""
-
 import random as r
 import time as t
 import tkinter as tk
+
 
 def insert_sort_with_barrier(array):
     array = [0] + array
@@ -17,6 +14,7 @@ def insert_sort_with_barrier(array):
         array[j + 1] = array[0]
     return array[1:]
 
+
 def bubble_sort_with_flag(array):
     for i in range(len(array) - 1):
         flag = True
@@ -28,17 +26,20 @@ def bubble_sort_with_flag(array):
             break
     return array
 
+
 def sort_init_array():
     init_array = init_arr_entry.get()
     init_array = list(map(int, init_array.split()))
     sorted_arr_entry.delete(0, "end")
     sorted_arr_entry.insert(0, insert_sort_with_barrier(init_array))
 
+
 def bubble_init_array():
     init_array = init_arr_entry.get()
     init_array = list(map(int, init_array.split()))
     sorted_arr_entry.delete(0, "end")
     sorted_arr_entry.insert(0, bubble_sort_with_flag(init_array))
+
 
 def sort_arrays():
     array_len_var = array_len_entry.get()

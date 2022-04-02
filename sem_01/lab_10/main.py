@@ -9,12 +9,14 @@ def menu():
           'начинающихся на заданную букву.\n'
           '8. Выйти')
 
+
 def lengthOfStr():
     biggestLength = len(text[0])
     for i in range(len(text)):
         if len(text[i]) > biggestLength:
             biggestLength = len(text[i])
     return biggestLength
+
 
 def justifiedAlignment(text):
     textCopy = text.copy()
@@ -55,6 +57,7 @@ def justifiedAlignment(text):
         lengthOfStr = 0
         numOfWords = 0
 
+
 def deleteWord(mainText, wordToDelete):
     j = 0
     for i in range(len(mainText)):
@@ -68,6 +71,7 @@ def deleteWord(mainText, wordToDelete):
         j = 0
         print(mainText[i])
 
+
 def replaceWords(text, wordToReplace, newWord):
     j = 0
     for i in range(len(text)):
@@ -79,6 +83,7 @@ def replaceWords(text, wordToReplace, newWord):
         text[i] = ' '.join(helpArray)
         j = 0
         print(text[i])
+
 
 def plusOrMinus(expression):
     i = 0
@@ -95,6 +100,7 @@ def plusOrMinus(expression):
             i -= 1
         i += 1
     return expression
+
 
 def multOrDiv(expression):
     i = 0
@@ -122,6 +128,7 @@ def multOrDiv(expression):
         i += 1
     return plusOrMinus(expression)
 
+
 def powerOrBrackets(expression):
     expression = expression.split()
     i = 0
@@ -133,6 +140,7 @@ def powerOrBrackets(expression):
             i -= 1
         i += 1
     return multOrDiv(expression)
+
 
 def solveExpression(expression):
     flag = False
@@ -149,6 +157,7 @@ def solveExpression(expression):
         expression = expression.replace("(" + new_string + ")", str(a))
     return powerOrBrackets(expression)[0]
 
+
 def findSolution(mainText):
     for i in range(len(mainText)):
         addArray = mainText[i].split(' ')
@@ -159,8 +168,10 @@ def findSolution(mainText):
         while j < len(addArray):
             for k in range(len(addArray[j])):
                 if 47 < ord(addArray[j][k]) < 58 or addArray[j][k] == '-' or \
-                        addArray[j][k] == '+' or addArray[j][k] == '*' or addArray[j][k] \
-                        == '/' or addArray[j][k] == '%' or addArray[j][k] == '(' or addArray[j][k] == ')':
+                        addArray[j][k] == '+' or 
+                        addArray[j][k] == '*' or addArray[j][k] \
+                        == '/' or addArray[j][k] == '%' or \
+                        addArray[j][k] == '(' or addArray[j][k] == ')':
                     count += 1
                 if count == len(addArray[j]):
                     solution += addArray[j]
@@ -181,6 +192,7 @@ def findSolution(mainText):
         element = 0
     for i in range(len(mainText)):
         print(mainText[i])
+
 
 def maxNumOfWords(mainText):
     firstLetter = str(input('Введите букву: '))
